@@ -1,0 +1,23 @@
+{
+    "app_title": "Aplicación de Publicaciones",
+    "posts_list_title": "Publicaciones",
+    "saved_posts_title": "Publicaciones Guardadas",
+    "post_details_title": "Detalles de la Publicación",
+    "post_comments_title": "Comentarios",
+    "save_button": "Guardar",
+    "unsave_button": "Quitar",
+    "view_comments_button": "Ver Comentarios",
+    "no_saved_posts": "Aún no hay publicaciones guardadas",
+    "no_comments": "Aún no hay comentarios",
+    "no_posts": "No hay publicaciones disponibles",
+    "post_not_found": "Publicación no encontrada",
+    "error_loading_posts": "Error al cargar publicaciones",
+    "error_loading_post_details": "Error al cargar detalles de la publicación",
+    "error_loading_comments": "Error al cargar comentarios",
+    "network_error": "Error de red - Por favor, verifica tu conexión a internet",
+    "try_again": "Intentar de nuevo",
+    "author": "Autor",
+    "email": "Correo",
+    "post_saved_success": "Publicación guardada correctamente",
+    "post_unsaved_success": "Publicación eliminada de guardados"
+  }

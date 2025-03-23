@@ -1,0 +1,23 @@
+{
+    "app_title": "Posts App",
+    "posts_list_title": "Posts",
+    "saved_posts_title": "Saved Posts",
+    "post_details_title": "Post Details",
+    "post_comments_title": "Comments",
+    "save_button": "Save",
+    "unsave_button": "Unsave",
+    "view_comments_button": "View Comments",
+    "no_saved_posts": "No saved posts yet",
+    "no_comments": "No comments yet",
+    "no_posts": "No posts available",
+    "post_not_found": "Post not found",
+    "error_loading_posts": "Error loading posts",
+    "error_loading_post_details": "Error loading post details",
+    "error_loading_comments": "Error loading comments",
+    "network_error": "Network error - Please check your internet connection",
+    "try_again": "Try Again",
+    "author": "Author",
+    "email": "Email",
+    "post_saved_success": "Post saved successfully",
+    "post_unsaved_success": "Post removed from saved"
+  }

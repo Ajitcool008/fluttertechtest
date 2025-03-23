@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../di/manual_locator.dart';
 import '../../../localization/app_localizations.dart';
 import '../../../ui/widgets/error_widget.dart';
 import '../../../ui/widgets/loading_widget.dart';
@@ -13,7 +14,9 @@ class PostsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PostsViewModel>.reactive(
-      viewModelBuilder: () => PostsViewModel(),
+      viewModelBuilder: () => locator<PostsViewModel>(), // Use singleton
+      disposeViewModel: false, // Don't dispose
+      fireOnViewModelReadyOnce: false, // Fire every time view is shown
       onViewModelReady: (model) => model.loadPosts(),
       builder:
           (context, model, child) => Scaffold(

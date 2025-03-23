@@ -2,40 +2,42 @@ import 'package:flutter_tech_task/di/manual_locator.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../services/post_service.dart';
+import '../saved_posts/saved_posts_viewmodel.dart';
 
-class HomeViewModel extends ReactiveViewModel {
+class HomeViewModel extends BaseViewModel {
   final _postService = locator<PostService>();
+  final _savedPostsViewModel = locator<SavedPostsViewModel>();
 
   int _currentIndex = 0;
-  int _savedPostsCount = 0;
 
   int get currentIndex => _currentIndex;
-  int get savedPostsCount => _savedPostsCount;
+  int get savedPostsCount => _postService.savedPostsCount;
+
+  HomeViewModel() {
+    _postService.addListener(_refreshUI);
+  }
+
+  void _refreshUI() {
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _postService.removeListener(_refreshUI);
+    super.dispose();
+  }
 
   void initialize() {
-    getSavedPostsCount();
+    // Make sure we have the latest count
+    _postService.updateSavedPostsCount();
   }
 
   void setIndex(int index) {
     _currentIndex = index;
     if (index == 1) {
-      // Refresh saved posts count when switching to saved posts tab
-      getSavedPostsCount();
+      // Force refresh saved posts when switching to saved posts tab
+      _savedPostsViewModel.loadSavedPosts();
     }
     notifyListeners();
   }
-
-  Future<void> getSavedPostsCount() async {
-    final result = await _postService.getSavedPostsCount();
-    result.fold(
-      (failure) => null, // Handle error if needed
-      (count) {
-        _savedPostsCount = count;
-        notifyListeners();
-      },
-    );
-  }
-
-  @override
-  List<ReactiveServiceMixin> get reactiveServices => [];
 }

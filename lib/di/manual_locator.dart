@@ -18,6 +18,8 @@ import '../domain/usecases/save_post.dart';
 import '../domain/usecases/unsave_post.dart';
 import '../services/comment_service.dart';
 import '../services/post_service.dart';
+import '../ui/views/posts/posts_viewmodel.dart';
+import '../ui/views/saved_posts/saved_posts_viewmodel.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -95,6 +97,13 @@ Future<void> setupDependencies() async {
   );
 
   locator.registerLazySingleton<CommentService>(
-    () => CommentService(getPostComments: locator<GetPostComments>()),
+    () => CommentService(
+      getPostComments: locator<GetPostComments>(),
+      repository: locator<PostRepository>(), // Add repository
+    ),
   );
+
+  // Register ViewModels as singletons so they can be accessed from anywhere
+  locator.registerSingleton<PostsViewModel>(PostsViewModel());
+  locator.registerSingleton<SavedPostsViewModel>(SavedPostsViewModel());
 }

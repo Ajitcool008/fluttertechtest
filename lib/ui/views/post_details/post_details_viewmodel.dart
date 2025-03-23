@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../../domain/entities/post.dart';
 import '../../../services/post_service.dart';
+import '../saved_posts/saved_posts_viewmodel.dart';
 
 class PostDetailsViewModel extends BaseViewModel {
   final _postService = locator<PostService>();
@@ -19,6 +20,8 @@ class PostDetailsViewModel extends BaseViewModel {
 
   Future<void> loadPostDetails(int postId) async {
     setBusy(true);
+    // Clear previous error state
+    clearErrors();
     final result = await _postService.getPostDetails(postId);
 
     result.fold(
@@ -62,6 +65,10 @@ class PostDetailsViewModel extends BaseViewModel {
                   : 'Post removed from saved',
           duration: const Duration(seconds: 2),
         );
+
+        // Force refresh saved posts list
+        locator<SavedPostsViewModel>().loadSavedPosts();
+
         setBusy(false);
       },
     );
@@ -74,5 +81,12 @@ class PostDetailsViewModel extends BaseViewModel {
       Routes.commentsView,
       arguments: CommentsViewArguments(postId: _post!.id),
     );
+  }
+
+  void navigateBack() {
+    // Call refreshes first, then navigate back
+    // locator<PostsViewModel>().loadPosts();
+    // locator<SavedPostsViewModel>().loadSavedPosts();
+    _navigationService.back();
   }
 }

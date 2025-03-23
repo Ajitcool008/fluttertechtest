@@ -16,8 +16,26 @@ class PostsViewModel extends BaseViewModel {
   List<Post> get posts => _posts;
   String get errorMessage => _errorMessage;
 
+  PostsViewModel() {
+    // Listen for changes in the post service
+    _postService.addListener(_refreshPosts);
+  }
+
+  @override
+  void dispose() {
+    _postService.removeListener(_refreshPosts);
+    super.dispose();
+  }
+
+  // When post service changes, refresh the posts
+  void _refreshPosts() {
+    loadPosts();
+  }
+
   Future<void> loadPosts() async {
     setBusy(true);
+    // Clear previous error state
+    clearErrors();
     final result = await _postService.getAllPosts();
 
     result.fold(

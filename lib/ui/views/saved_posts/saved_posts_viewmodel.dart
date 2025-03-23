@@ -16,6 +16,22 @@ class SavedPostsViewModel extends BaseViewModel {
   List<Post> get savedPosts => _savedPosts;
   String get errorMessage => _errorMessage;
 
+  SavedPostsViewModel() {
+    // Listen for changes in the post service
+    _postService.addListener(_refreshSavedPosts);
+  }
+
+  @override
+  void dispose() {
+    _postService.removeListener(_refreshSavedPosts);
+    super.dispose();
+  }
+
+  // When post service changes, refresh the saved posts
+  void _refreshSavedPosts() {
+    loadSavedPosts();
+  }
+
   Future<void> loadSavedPosts() async {
     setBusy(true);
     final result = await _postService.getSavedPosts();
@@ -28,14 +44,9 @@ class SavedPostsViewModel extends BaseViewModel {
       },
       (posts) {
         _savedPosts = posts;
-        updateSavedPostsCount();
         setBusy(false);
       },
     );
-  }
-
-  Future<void> updateSavedPostsCount() async {
-    await _postService.getSavedPostsCount();
   }
 
   void navigateToPostDetails(int postId) {

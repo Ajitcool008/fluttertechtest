@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import '../entities/post.dart';
-import '../entities/comment.dart';
+
 import '../../core/error/failures.dart';
+import '../entities/comment.dart';
+import '../entities/post.dart';
 
 abstract class PostRepository {
   Future<Either<Failure, List<Post>>> getAllPosts();
@@ -12,4 +13,9 @@ abstract class PostRepository {
   Future<Either<Failure, Post>> unsavePost(Post post);
   Future<Either<Failure, bool>> isPostSaved(int postId);
   Future<Either<Failure, int>> getSavedPostsCount();
+  Future<Either<Failure, void>> cachePostComments(
+    int postId,
+    List<Comment> comments,
+  );
+  Future<Either<Failure, bool>> hasLocalComments(int postId);
 }

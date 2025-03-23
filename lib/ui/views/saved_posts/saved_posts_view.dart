@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tech_task/di/manual_locator.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../localization/app_localizations.dart';
@@ -14,7 +15,11 @@ class SavedPostsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SavedPostsViewModel>.reactive(
-      viewModelBuilder: () => SavedPostsViewModel(),
+      viewModelBuilder:
+          () => locator<SavedPostsViewModel>(), // Use the singleton
+      disposeViewModel: false, // Don't dispose it
+      fireOnViewModelReadyOnce:
+          false, // Fire onModelReady every time the view is shown
       onViewModelReady: (model) => model.loadSavedPosts(),
       builder:
           (context, model, child) => Scaffold(

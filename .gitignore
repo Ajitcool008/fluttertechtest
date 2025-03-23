@@ -50,7 +50,3 @@ coverage/
 # Generated files
 *.g.dart
 *.freezed.dart
-
-# Stacked generated files
-*.locator.dart
-*.router.dart

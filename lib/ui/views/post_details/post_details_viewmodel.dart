@@ -82,11 +82,4 @@ class PostDetailsViewModel extends BaseViewModel {
       arguments: CommentsViewArguments(postId: _post!.id),
     );
   }
-
-  void navigateBack() {
-    // Call refreshes first, then navigate back
-    // locator<PostsViewModel>().loadPosts();
-    // locator<SavedPostsViewModel>().loadSavedPosts();
-    _navigationService.back();
-  }
 }

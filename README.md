@@ -6,7 +6,7 @@ A Flutter project demonstration implementation of CLEAN architecture with Stacke
 - View posts from JSONPlaceholder
 - Tap on a post to see its details
 - Save posts for offline reading
-- View comments on posts
+- View comments on posts and that is also stored for offline
 - View saved posts in a separate tab
 - See how many posts are saved with the tab badge
 
